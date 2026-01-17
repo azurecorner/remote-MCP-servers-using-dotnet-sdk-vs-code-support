@@ -1,0 +1,14 @@
+{
+    "inputs": [],
+    "servers": {
+        "local-mcp-server": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "C:\\Users\\LEYE-GORA\\source\\repos\\AZURE WARRIORS\\remote-MCP-servers-using-dotnet-sdk-vs-code-support\\src\\McpServer\\McpServer\\McpServer.csproj"
+            ]
+        }
+    }
+}
