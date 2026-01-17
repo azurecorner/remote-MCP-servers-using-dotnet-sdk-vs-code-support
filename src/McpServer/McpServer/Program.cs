@@ -10,7 +10,7 @@ builder.Services.AddMcpServer()
     {
         options.Stateless = true;
     })
-     .WithToolsFromAssembly()
+    //.WithToolsFromAssembly()
     .WithTools<McpServerTools>();
 
 builder.Logging.ClearProviders();
