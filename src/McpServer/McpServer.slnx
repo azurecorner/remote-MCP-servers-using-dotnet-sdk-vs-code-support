@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="McpServer/McpServer.csproj" />
+  <Project Path="WeatherService/WeatherService.csproj" />
 </Solution>

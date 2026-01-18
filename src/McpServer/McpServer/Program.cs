@@ -1,4 +1,5 @@
 using McpServer;
+using WeatherService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +11,13 @@ builder.Services.AddMcpServer()
     {
         options.Stateless = true;
     })
-    //.WithToolsFromAssembly()
+     .WithStdioServerTransport()
+    .WithToolsFromAssembly()
     .WithTools<McpServerTools>();
 
-builder.Logging.ClearProviders();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+
 builder.Logging.AddConsole(options =>
 {
     options.LogToStandardErrorThreshold = LogLevel.Trace;
