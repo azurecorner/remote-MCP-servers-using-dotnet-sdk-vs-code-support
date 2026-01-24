@@ -1,0 +1,13 @@
+{
+    "chat.mcp.serverSampling": {
+        "remote-MCP-servers-using-dotnet-sdk-vs-code-support/.vscode/mcp.json: local-mcp-server": {
+            "allowedModels": [
+                "copilot/auto",
+                "copilot/claude-sonnet-4.5",
+                "copilot/gemini-2.5-pro",
+                "copilot/gpt-5"
+            ]
+        }
+    },
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true
+}

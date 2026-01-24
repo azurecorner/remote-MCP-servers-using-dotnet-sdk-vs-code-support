@@ -4,39 +4,5 @@
       "url": "http://0.0.0.0:8081/mcp",
       "type": "http"
     }
-  },
-  "inputs": [
-    {
-      "name": "get_weather",
-      "description": "Get weather for a city",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "city": {
-            "description": "The name of city",
-            "type": "string"
-          }
-        },
-        "required": [
-          "city"
-        ]
-      }
-    },
-    {
-      "name": "ping",
-      "description": "Health check tool. If message is empty respond with server health; otherwise echo the message",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "description": "Health check tool. Behaves as follows:\n- If message is empty, respond with server health\n- Otherwise echo the message",
-            "type": "string"
-          }
-        },
-        "required": [
-          "message"
-        ]
-      }
-    }
-  ]
+  }
 }
