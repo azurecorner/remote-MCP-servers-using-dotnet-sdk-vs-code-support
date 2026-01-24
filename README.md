@@ -5,6 +5,7 @@ A Model Context Protocol (MCP) server implementation in C# that exposes weather 
 ## Overview
 
 This project demonstrates how to build an HTTP-based MCP server using the .NET SDK. The server exposes two tools:
+
 - **ping**: Health check with optional message echo
 - **get_weather**: Weather forecast retrieval for cities
 
@@ -17,7 +18,7 @@ This project demonstrates how to build an HTTP-based MCP server using the .NET S
 
 ## Project Structure
 
-```
+```text
 remote-MCP-servers-using-dotnet-sdk-vs-code-support/
 ├── src/
 │   └── McpServer/
@@ -41,7 +42,8 @@ dotnet run --project .\src\McpServer\McpServer\McpServer.csproj
 ```
 
 You should see output indicating the server is running:
-```
+
+```powershell
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: http://0.0.0.0:8081
 ```
@@ -126,22 +128,28 @@ Expected Response: Weather forecast data for London
 The `local-mcp-server` provides the following tools:
 
 ### ping
+
 **Description**: Health check tool that verifies the MCP server is running. If a message is provided, it echoes it back; otherwise, returns server health status.
 
 **Parameters**:
+
 - `message` (string, optional): Optional message to echo back. If empty, returns health status.
 
 **Example Usage**:
+
 - "Ping the server"
 - "Run a health check on the MCP server"
 
 ### get_weather
+
 **Description**: Retrieves the current weather forecast for a specified city.
 
 **Parameters**:
+
 - `city` (string, required): The name of the city to get weather forecast for.
 
 **Example Usage**:
+
 - "What's the weather in Paris?"
 - "Get weather forecast for Tokyo"
 
@@ -149,8 +157,9 @@ The `local-mcp-server` provides the following tools:
 
 ### Server Not Discovering Tools
 
-**Symptom**: 
-```
+**Symptom**:
+
+```powershell
 [warning] Tool get_weather does not have a description
 [warning] Tool ping does not have a description
 ```
@@ -167,7 +176,8 @@ public async Task<string> Ping([Description("Optional message...")] string messa
 
 **Symptom**: Port 8081 already in use
 
-**Solution**: 
+**Solution**:
+
 1. Stop any existing instances of the server
 2. Check for processes using port 8081: `netstat -ano | findstr :8081`
 3. Kill the process or change the port in `Program.cs`
@@ -177,6 +187,7 @@ public async Task<string> Ping([Description("Optional message...")] string messa
 **Symptom**: Server is running but tools don't appear in chat
 
 **Solution**:
+
 1. Verify the server is running: Check output panel
 2. Restart VS Code: `Ctrl + Shift + P` → "Developer: Reload Window"
 3. Reconnect to the server: Use "List MCP Servers" command
@@ -187,6 +198,7 @@ public async Task<string> Ping([Description("Optional message...")] string messa
 **Symptom**: Server keeps stopping automatically
 
 **Solution**:
+
 1. Check server logs for errors: "Show Output" command
 2. Verify the server is running on the correct port (8081)
 3. Test the endpoint manually: `curl http://localhost:8081/mcp`
@@ -204,7 +216,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-[Add your license here]
-
-
-
+MIT License
