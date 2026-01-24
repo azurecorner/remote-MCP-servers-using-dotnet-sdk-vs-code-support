@@ -1,18 +1,54 @@
-# remote-MCP-servers-using-dotnet
+# Remote MCP Server using .NET SDK with VS Code Support
 
-## Resources
+A Model Context Protocol (MCP) server implementation in C# that exposes weather forecast and health check tools. This server integrates with GitHub Copilot in VS Code, allowing AI assistants to call your custom tools.
 
-- [Build a Model Context Protocol (MCP) Server in C#](https://devblogs.microsoft.com/dotnet/build-a-model-context-protocol-mcp-server-in-csharp/)
-- [Video Tutorial](https://youtu.be/iS25RFups4A?si=prIH_U56t4-HYrai)
-- [C# SDK Repository](https://github.com/modelcontextprotocol/csharp-sdk)
+## Overview
 
-## Use copilot
+This project demonstrates how to build an HTTP-based MCP server using the .NET SDK. The server exposes two tools:
+- **ping**: Health check with optional message echo
+- **get_weather**: Weather forecast retrieval for cities
 
-```powershell
+## Prerequisites
 
-dotnet run --project .\src\McpServer\McpServer\McpServer.csproj
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) or later
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) (with MCP support)
+- [C# Dev Kit extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) (recommended)
+
+## Project Structure
 
 ```
+remote-MCP-servers-using-dotnet-sdk-vs-code-support/
+├── src/
+│   └── McpServer/
+│       └── McpServer/
+│           ├── McpServerTools.cs      # Tool definitions
+│           ├── Program.cs             # Server entry point
+│           └── McpServer.csproj       # Project file
+├── .vscode/
+│   └── mcp.json                       # MCP server configuration
+└── README.md
+```
+
+## Getting Started
+
+### 1. Build and Run the Server
+
+Open a terminal in the project root and run:
+
+```powershell
+dotnet run --project .\src\McpServer\McpServer\McpServer.csproj
+```
+
+You should see output indicating the server is running:
+```
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://0.0.0.0:8081
+```
+
+### 2. Configure VS Code
+
+Create or verify `.vscode/mcp.json` in your workspace:
 
 ```json
 {
@@ -21,17 +57,13 @@ dotnet run --project .\src\McpServer\McpServer\McpServer.csproj
       "url": "http://0.0.0.0:8081/mcp",
       "type": "http"
     }
-  },
-  "inputs": [
- 
-  ]
+  }
 }
-
 ```
 
-## Managing the MCP Server in VS Code
+**Important**: Do not add an `inputs` or `prompts` property to this file. The MCP configuration only accepts `servers`.
 
-Once you have the MCP server configuration in `.vscode/mcp.json`, you can manage it through the VS Code Command Palette:
+### 3. Connect to the Server in VS Code
 
 1. **Open Command Palette**: Press `Ctrl + Shift + P` (Windows/Linux) or `Cmd + Shift + P` (Mac)
 
@@ -47,7 +79,7 @@ Once you have the MCP server configuration in `.vscode/mcp.json`, you can manage
    - **Show Output**: Opens the output panel showing server logs and tool discovery
    - **Configure Model Access**: Configures which AI models can access this MCP server
 
-### Verifying Server Status
+### 4. Verify Server Status
 
 After starting the server, check the output panel for:
 
@@ -56,18 +88,19 @@ After starting the server, check the output panel for:
 [info] Discovered 2 tools
 ```
 
-If you see warnings about tool descriptions, ensure all methods in `McpServerTools.cs` have `[Description]` attributes.
+✅ If you see this, the server is ready to use!
+
+⚠️ If you see warnings about tool descriptions, ensure all methods in [McpServerTools.cs](src/McpServer/McpServer/McpServerTools.cs) have `[Description]` attributes.
 
 ## Testing the MCP Server
 
 ### Ping Test
 
-Once the server is running, you can test it using the `ping` tool:
+Once the server is running, test it using the `ping` tool in GitHub Copilot Chat:
 
 #### Test 1: Basic Health Check
 
 ```text
-
 Ask: "Ping the server"
 Expected Response: ✅ MCP server is alive.
 ```
@@ -88,14 +121,90 @@ Ask: "What's the weather in London?"
 Expected Response: Weather forecast data for London
 ```
 
-### Available Tools
+## Available Tools
 
-The `local-mcp-server` provides:
+The `local-mcp-server` provides the following tools:
 
-- **ping**: Health check with optional message echo
-  - Parameter: `message` (optional string)
-- **get_weather**: Retrieves weather forecast for a city
-  - Parameter: `city` (required string)
+### ping
+**Description**: Health check tool that verifies the MCP server is running. If a message is provided, it echoes it back; otherwise, returns server health status.
+
+**Parameters**:
+- `message` (string, optional): Optional message to echo back. If empty, returns health status.
+
+**Example Usage**:
+- "Ping the server"
+- "Run a health check on the MCP server"
+
+### get_weather
+**Description**: Retrieves the current weather forecast for a specified city.
+
+**Parameters**:
+- `city` (string, required): The name of the city to get weather forecast for.
+
+**Example Usage**:
+- "What's the weather in Paris?"
+- "Get weather forecast for Tokyo"
+
+## Troubleshooting
+
+### Server Not Discovering Tools
+
+**Symptom**: 
+```
+[warning] Tool get_weather does not have a description
+[warning] Tool ping does not have a description
+```
+
+**Solution**: Ensure all tool methods have `[Description]` attributes at the method level in [McpServerTools.cs](src/McpServer/McpServer/McpServerTools.cs):
+
+```csharp
+[McpServerTool]
+[Description("Health check tool that verifies the MCP server is running...")]
+public async Task<string> Ping([Description("Optional message...")] string message)
+```
+
+### Server Won't Start
+
+**Symptom**: Port 8081 already in use
+
+**Solution**: 
+1. Stop any existing instances of the server
+2. Check for processes using port 8081: `netstat -ano | findstr :8081`
+3. Kill the process or change the port in `Program.cs`
+
+### Tools Not Visible in Copilot Chat
+
+**Symptom**: Server is running but tools don't appear in chat
+
+**Solution**:
+1. Verify the server is running: Check output panel
+2. Restart VS Code: `Ctrl + Shift + P` → "Developer: Reload Window"
+3. Reconnect to the server: Use "List MCP Servers" command
+4. Ensure GitHub Copilot extension is up to date
+
+### Connection State: Stopped
+
+**Symptom**: Server keeps stopping automatically
+
+**Solution**:
+1. Check server logs for errors: "Show Output" command
+2. Verify the server is running on the correct port (8081)
+3. Test the endpoint manually: `curl http://localhost:8081/mcp`
+
+## Resources
+
+- [Build a Model Context Protocol (MCP) Server in C#](https://devblogs.microsoft.com/dotnet/build-a-model-context-protocol-mcp-server-in-csharp/) - Official Microsoft tutorial
+- [Video Tutorial](https://youtu.be/iS25RFups4A?si=prIH_U56t4-HYrai) - Step-by-step walkthrough
+- [C# SDK Repository](https://github.com/modelcontextprotocol/csharp-sdk) - Official MCP C# SDK
+- [MCP Specification](https://spec.modelcontextprotocol.io/) - Protocol documentation
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+[Add your license here]
 
 
 
