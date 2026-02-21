@@ -1,6 +1,6 @@
 # Remote MCP Server using .NET SDK with VS Code Support
 
-A Model Context Protocol (MCP) server implementation in C# that exposes weather forecast and health check tools. This server integrates with GitHub Copilot in VS Code, allowing AI assistants to call your custom tools.
+This project is a C# implementation of a Model Context Protocol (MCP) server that exposes weather forecast and health check tools. This server integrates with GitHub Copilot in VS Code, allowing AI assistants to call your custom tools.
 
 ## Overview
 
@@ -63,8 +63,6 @@ Create or verify `.vscode/mcp.json` in your workspace:
 }
 ```
 
-**Important**: Do not add an `inputs` or `prompts` property to this file. The MCP configuration only accepts `servers`.
-
 ### 3. Connect to the Server in VS Code
 
 1. **Open Command Palette**: Press `Ctrl + Shift + P` (Windows/Linux) or `Cmd + Shift + P` (Mac)
@@ -99,6 +97,8 @@ After starting the server, check the output panel for:
 ### Ping Test
 
 Once the server is running, test it using the `ping` tool in GitHub Copilot Chat:
+
+Open chat windows and start conversation
 
 #### Test 1: Basic Health Check
 
@@ -201,14 +201,13 @@ public async Task<string> Ping([Description("Optional message...")] string messa
 
 1. Check server logs for errors: "Show Output" command
 2. Verify the server is running on the correct port (8081)
-3. Test the endpoint manually: `curl http://localhost:8081/mcp`
+3. Test the endpoint manually: `curl -k -v http://localhost:8081/api/healthz`
 
 ## Resources
 
 - [Build a Model Context Protocol (MCP) Server in C#](https://devblogs.microsoft.com/dotnet/build-a-model-context-protocol-mcp-server-in-csharp/) - Official Microsoft tutorial
-- [Video Tutorial](https://youtu.be/iS25RFups4A?si=prIH_U56t4-HYrai) - Step-by-step walkthrough
 - [C# SDK Repository](https://github.com/modelcontextprotocol/csharp-sdk) - Official MCP C# SDK
-- [MCP Specification](https://spec.modelcontextprotocol.io/) - Protocol documentation
+- [MCP Specification](https://modelcontextprotocol.io/specification/2025-11-25) - Protocol documentation
 
 ## Contributing
 
