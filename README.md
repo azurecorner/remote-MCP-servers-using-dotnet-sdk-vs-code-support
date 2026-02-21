@@ -106,8 +106,11 @@ Open chat windows and start conversation
 Ask: "Ping the server"
 Expected Response: ✅ MCP server is alive.
 ```
+Ask your question
+
 <img width="397" height="503" alt="image" src="https://github.com/user-attachments/assets/79236db9-2cc9-4e69-a332-54ce55c3e372" />
 
+Approve and get result
 
 <img width="402" height="297" alt="image" src="https://github.com/user-attachments/assets/639c8fae-235f-4d2e-99f8-91a44247d883" />
 
@@ -126,8 +129,11 @@ Test the weather forecast functionality:
 Ask: "What's the weather in London?"
 Expected Response: Weather forecast data for London
 ```
+Ask your question
+
 <img width="378" height="513" alt="image" src="https://github.com/user-attachments/assets/bc53b7fb-bd69-4f36-9900-c844296200be" />
 
+Approve and get result
 
 <img width="402" height="435" alt="image" src="https://github.com/user-attachments/assets/18d71745-1583-4670-9177-69fdaefbb907" />
 
