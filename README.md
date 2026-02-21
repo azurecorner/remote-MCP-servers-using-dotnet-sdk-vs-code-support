@@ -108,11 +108,12 @@ Expected Response: ✅ MCP server is alive.
 ```
 Ask your question
 
-<img width="397" height="503" alt="image" src="https://github.com/user-attachments/assets/79236db9-2cc9-4e69-a332-54ce55c3e372" />
+<img width="397" height="503" alt="image" src="https://github.com/user-attachments/assets/584eaf92-1978-4f12-9e09-1286f4078953" />
 
 Approve and get result
 
-<img width="402" height="297" alt="image" src="https://github.com/user-attachments/assets/639c8fae-235f-4d2e-99f8-91a44247d883" />
+<img width="402" height="297" alt="image" src="https://github.com/user-attachments/assets/3247a99b-c152-4942-add0-a362d65cfd95" />
+
 
 #### Test 2: Echo Message
 
@@ -131,11 +132,11 @@ Expected Response: Weather forecast data for London
 ```
 Ask your question
 
-<img width="378" height="513" alt="image" src="https://github.com/user-attachments/assets/bc53b7fb-bd69-4f36-9900-c844296200be" />
+<img width="378" height="513" alt="image" src="https://github.com/user-attachments/assets/60e031af-ded2-4b77-af7d-564f3aa23b09" />
 
 Approve and get result
 
-<img width="402" height="435" alt="image" src="https://github.com/user-attachments/assets/18d71745-1583-4670-9177-69fdaefbb907" />
+<img width="402" height="435" alt="image" src="https://github.com/user-attachments/assets/51e37be7-03eb-438e-bea0-2dcd830bd0fe" />
 
 ## Available Tools
 
